@@ -1,7 +1,7 @@
 'use strict';
 
 const image = new Image();
-image.src = '/img/image.svg';
+image.src = 'img/image.svg';
 const verticalPreview = document.querySelector('.vertical-preview');
 const horizontalPreview = document.querySelector('.horizontal-preview');
 const imagePreview = document.querySelector('.image-preview');
