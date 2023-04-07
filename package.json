@@ -1,0 +1,22 @@
+{
+  "name": "image_shake_preview",
+  "version": "0.0.1",
+  "description": "Web tool for creating and previewing image shaking animations.",
+  "main": "index.html",
+  "scripts": {
+    "live-server": "live-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yousei-kei-danshi/image_shake_preview.git"
+  },
+  "author": "sei.yukino",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yousei-kei-danshi/image_shake_preview/issues"
+  },
+  "homepage": "https://github.com/yousei-kei-danshi/image_shake_preview#readme",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

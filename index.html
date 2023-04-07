@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Shake Image Previewer</title>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body>
+	<div class="container">
+		<div class="preview-container">
+			<h3>タテ揺れ成分</h3>
+			<canvas class="preview vertical-preview"></canvas>
+		</div>
+		<div class="preview-container">
+			<h3>ヨコ揺れ成分</h3>
+			<canvas class="preview horizontal-preview"></canvas>
+		</div>
+		<div class="preview-container">
+			<h3>プレビュー</h3>
+			<canvas class="preview image-preview"></canvas>
+		</div>
+
+		<div class="control-container">
+			<div class="control-section">
+				<h4>タテ揺れ制御パラメータ</h4>
+				<form>
+					<div class="input-wrapper">
+						<label for="vertical-amplitude"
+							title="Specifies the radius of the circle the image will shake in.">揺れ幅:</label>
+						<input type="range" id="vertical-amplitude" name="vertical-amplitude" min="0" max="100"
+							value="0">
+						<input type="number" id="vertical-amplitude-number" name="vertical-amplitude-number" min="0"
+							max="100" value="20">
+					</div>
+					<div class="input-wrapper">
+						<label for="vertical-frequency"
+							title="Specifies how many cycles the image will shake per second.">周期[周/秒]:</label>
+						<input type="range" id="vertical-frequency" name="vertical-frequency" min="0" max="10"
+							step="0.0625" value="1">
+						<input type="number" id="vertical-frequency-number" name="vertical-frequency-number" min="0"
+							max="10" step="0.0625" value="1">
+					</div>
+					<div class="input-wrapper">
+						<label for="vertical-start-theta"
+							title="You can shift the start phase of the image's shake.">位相/周:</label>
+						<input type="range" id="vertical-start-theta" name="vertical-start-theta" min="0" max="1"
+							step="0.01" value="0">
+						<input type="number" id="vertical-start-theta-number" name="vertical-start-theta-number" min="0"
+							max="1" step="0.01" value="0">
+					</div>
+				</form>
+			</div>
+			<div class="control-section">
+				<h4>ヨコ揺れ制御パラメータ</h4>
+				<form>
+					<div class="input-wrapper">
+						<label for="horizontal-amplitude"
+							title="Specifies the radius of the circle the image will shake in.">揺れ幅:</label>
+						<input type="range" id="horizontal-amplitude" name="horizontal-amplitude" min="0" max="100"
+							value="20">
+						<input type="number" id="horizontal-amplitude-number" name="horizontal-amplitude-number" min="0"
+							max="100" value="20">
+					</div>
+					<div class="input-wrapper">
+						<label for="horizontal-frequency"
+							title="Specifies how many cycles the image will shake per second.">周期[周/秒]:</label>
+						<input type="range" id="horizontal-frequency" name="horizontal-frequency" min="0" max="10"
+							step="0.0625" value="4">
+						<input type="number" id="horizontal-frequency-number" name="horizontal-frequency-number" min="0"
+							max="10" step="0.0625" value="1">
+					</div>
+					<div class="input-wrapper">
+						<label for="horizontal-start-theta"
+							title="You can shift the start phase of the image's shake.">位相/周:</label>
+						<input type="range" id="horizontal-start-theta" name="horizontal-start-theta" min="0" max="1"
+							step="0.01" value="0">
+						<input type="number" id="horizontal-start-theta-number" name="horizontal-start-theta-number"
+							min="0" max="1" step="0.01" value="0">
+					</div>
+				</form>
+			</div>
+			<div class="control-section">
+				<h4>他パラメータ</h4>
+				<form>
+					<div class="input-wrapper">
+						<label for="shake-duration" title="Specifies how long the image will shake.">揺らし続ける時間[秒]
+							(0:無期限):</label>
+						<input type="range" id="shake-duration" name="shake-duration" min="0" max="10" value="0"
+							step="0.0625">
+						<input type="number" id="shake-duration-number" name="shake-duration-number" min="0" max="10"
+							value="0" step="0.0625">
+					</div>
+				</form>
+			</div>
+
+			<hr />
+			<div class="button-section">
+
+				<h4>アニメーション制御ボタン</h4>
+				<div class="button-container">
+					<button onclick="startAnimation()">開始</button>
+					<button onclick="stopAnimation()">停止</button>
+				</div>
+
+				<h4>プリセットボタン</h4>
+				<div class="button-container">
+					<button onclick="startImageShakingAnimation(0, 1, 0, 20, 4, 0, 0)">初期値</button>
+					<button onclick="startImageShakingAnimation(5, 4, 0, 0, 0, 0, 2)">Preset 1</button>
+					<button onclick="startImageShakingAnimation(20, 1, 0, 20, 1, 0, 0)">Preset 2</button>
+					<button onclick="startImageShakingAnimation(0, 0, 0, 10, 2, 0, 1)">Preset 3</button>
+					<button onclick="startImageShakingAnimation(0, 0, 0, 5, 8, 0, 1)">Preset 4</button>
+					<button onclick="startImageShakingAnimation(10, 4, 0, 10, 3, 0, 0)">Preset 5</button>
+					<button onclick="startImageShakingAnimation(0, 0, 0, 10, 4, 0, 0.20)">Preset 6</button>
+					<button onclick="startImageShakingAnimation(32, 1, 0, 32, 1, 0.25, 0)">Preset 7</button>
+					<button onclick="startImageShakingAnimation(32, 1, 0, 8, 1, 0.75, 0)">Preset 8</button>
+					<button onclick="startImageShakingAnimation(32, 4, 0, 32, 1, 0, 0)">Preset 9</button>
+				</div>
+			</div>
+			<hr />
+
+			<h3>ヘルプ</h3>
+			<div class="text-container">
+				<h4>概要</h4>
+				<p class="description">
+					このWebツールは、画像の揺れアニメーションを作成してプレビューできます。二つの円の円周上を移動する二つの点からタテ方向とヨコ方向の揺れ成分を取り出し、それぞれの揺れ成分を組み合わせることで、独自の揺れ効果を作成できます。
+				</p>
+				<h4>制御パラメータ</h4>
+				<p>以下のパラメータは、垂直方向および水平方向の揺れ効果を制御します。</p>
+				<ul>
+					<li><strong>振幅:</strong>イメージが揺れる円の半径を指定します。半径が大きいほど、イメージが揺れる範囲が広くなります。</li>
+					<li><strong>周波数 [サイクル/秒]:</strong>イメージが1秒あたりに揺れるサイクル数を指定します。1は1秒に1サイクル、2は1秒に2サイクル揺れます。</li>
+					<li><strong>位相 [サイクル]:</strong>イメージの揺れの開始位相をシフトできます。0に設定するとサイクルの始めから、1に設定すると1サイクル後から開始します。</li>
+				</ul>
+				<p>揺れの期間パラメータは、イメージがどのくらいの時間揺れるかを指定します。0に設定すると無期限に揺れます。</p>
+				<h4>制御ボタン</h4>
+				<p>以下のボタンで揺れアニメーションを制御できます。</p>
+				<ul>
+					<li><strong>アニメーションを開始:</strong>現在のパラメータで揺れアニメーションを開始します。</li>
+					<li><strong>アニメーションを停止:</strong>揺れアニメーションを停止します。</li>
+				</ul>
+				<h4>プリセットボタン</h4>
+				<p>ツールには、いくつかのプリセットが用意されています。プリセットボタンをクリックすることで、簡単にさまざまな揺れ効果を試すことができます。</p>
+			</div>
+		</div>
+	</div>
+	<script src="/js/script.js"></script>
+</body>
+
+</html>

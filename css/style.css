@@ -1,0 +1,120 @@
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #f8f8f8;
+}
+
+p {
+    text-indent: 1rem;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.preview-container {
+    text-align: center;
+    margin: 10px;
+}
+
+.preview {
+    border: 1px solid black;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.control-container {
+    margin: 10px;
+}
+
+.control-container form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.control-container .input-wrapper {
+    text-indent: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.control-container input[type="range"],
+.control-container input[type="number"] {
+    margin-left: 5px;
+}
+
+.control-container input[type="range"] {
+    flex-grow: 1;
+}
+
+.control-container input[type="number"] {
+    width: 5em;
+}
+
+.control-container .input-wrapper label,
+.control-container .input-wrapper input[type="number"] {
+    display: flex;
+    align-items: center;
+}
+
+.control-container .input-wrapper label {
+    flex-basis: 300px;
+    font-weight: bold;
+}
+
+.control-container .input-wrapper input[type="range"] {
+    flex-basis: 64px;
+}
+
+.button-container {
+    text-indent: 1rem;
+}
+
+.button-container button {
+    line-height: 1.5rem;
+    margin: 10px 0;
+    padding: 5px 10px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-container button:hover {
+    background-color: #3e8e41;
+}
+
+.button-container button:active {
+    background-color: #1e522b;
+}
+
+.text-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.text-container h2,
+.text-container h3 {
+    margin-top: 0;
+}
+
+.text-container hr {
+    margin: 20px 0;
+}
