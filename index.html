@@ -26,12 +26,11 @@
 				<h4>タテ揺れ制御パラメータ</h4>
 				<form>
 					<div class="input-wrapper">
-						<label for="vertical-amplitude"
+						<label for="vertical-radius"
 							title="Specifies the radius of the circle the image will shake in.">揺れ幅:</label>
-						<input type="range" id="vertical-amplitude" name="vertical-amplitude" min="0" max="100"
-							value="0">
-						<input type="number" id="vertical-amplitude-number" name="vertical-amplitude-number" min="0"
-							max="100" value="20">
+						<input type="range" id="vertical-radius" name="vertical-radius" min="0" max="100" value="0">
+						<input type="number" id="vertical-radius-number" name="vertical-radius-number" min="0" max="100"
+							value="20">
 					</div>
 					<div class="input-wrapper">
 						<label for="vertical-frequency"
@@ -43,7 +42,7 @@
 					</div>
 					<div class="input-wrapper">
 						<label for="vertical-start-theta"
-							title="You can shift the start phase of the image's shake.">位相/周:</label>
+							title="You can shift the start theta of the image's shake.">位相/周:</label>
 						<input type="range" id="vertical-start-theta" name="vertical-start-theta" min="0" max="1"
 							step="0.01" value="0">
 						<input type="number" id="vertical-start-theta-number" name="vertical-start-theta-number" min="0"
@@ -55,11 +54,11 @@
 				<h4>ヨコ揺れ制御パラメータ</h4>
 				<form>
 					<div class="input-wrapper">
-						<label for="horizontal-amplitude"
+						<label for="horizontal-radius"
 							title="Specifies the radius of the circle the image will shake in.">揺れ幅:</label>
-						<input type="range" id="horizontal-amplitude" name="horizontal-amplitude" min="0" max="100"
+						<input type="range" id="horizontal-radius" name="horizontal-radius" min="0" max="100"
 							value="20">
-						<input type="number" id="horizontal-amplitude-number" name="horizontal-amplitude-number" min="0"
+						<input type="number" id="horizontal-radius-number" name="horizontal-radius-number" min="0"
 							max="100" value="20">
 					</div>
 					<div class="input-wrapper">
@@ -72,7 +71,7 @@
 					</div>
 					<div class="input-wrapper">
 						<label for="horizontal-start-theta"
-							title="You can shift the start phase of the image's shake.">位相/周:</label>
+							title="You can shift the start theta of the image's shake.">位相/周:</label>
 						<input type="range" id="horizontal-start-theta" name="horizontal-start-theta" min="0" max="1"
 							step="0.01" value="0">
 						<input type="number" id="horizontal-start-theta-number" name="horizontal-start-theta-number"
