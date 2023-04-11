@@ -227,7 +227,7 @@ function drawImagePreview(canvas, verticalRadius, verticalFrequency, verticalSta
 function getCalculatedCircularCoordinates(radius, frequency, startTheta, elapsedTime) {
     const theta = elapsedTime * 2 * Math.PI * frequency + startTheta;
     const x = radius * Math.cos(theta);
-    const y = radius * Math.sin(theta);
+    const y = -radius * Math.sin(theta);
 
     return { x, y };
 }
