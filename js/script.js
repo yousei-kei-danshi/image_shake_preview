@@ -19,6 +19,7 @@ const horizontalStartThetaInput = document.getElementById('horizontal-start-thet
 const horizontalStartThetaNumber = document.getElementById('horizontal-start-theta-number');
 const shakeDurationInput = document.getElementById('shake-duration');
 const shakeDurationNumber = document.getElementById('shake-duration-number');
+const checkResetPositionAfterShaking = document.getElementById('check-reset-position-after-shaking');
 
 const CANVAS_WIDTH = 200;
 const CANVAS_HEIGHT = 200;
@@ -48,6 +49,7 @@ horizontalStartThetaInput.addEventListener('input', () => updateValue(horizontal
 horizontalStartThetaNumber.addEventListener('input', () => updateValue(horizontalStartThetaNumber, horizontalStartThetaInput));
 shakeDurationInput.addEventListener('input', () => updateValue(shakeDurationInput, shakeDurationNumber));
 shakeDurationNumber.addEventListener('input', () => updateValue(shakeDurationNumber, shakeDurationInput));
+checkResetPositionAfterShaking.addEventListener('change', () => update());
 document.onreadystatechange = startAnimation()
 
 function updateValue(source, target) {
@@ -120,6 +122,7 @@ function update() {
     const horizontalFrequency = parseFloat(horizontalFrequencyInput.value);
     const horizontalStartTheta = parseFloat(horizontalStartThetaInput.value) * 2 * Math.PI;
     const shakeDuration = parseFloat(shakeDurationInput.value) <= 0 ? Infinity : parseFloat(shakeDurationInput.value);
+    const isResetPosition = checkResetPositionAfterShaking.checked;
 
     const elapsedTime = Math.min(shakeDuration, getElapsedTime());
 
@@ -129,7 +132,11 @@ function update() {
 
     drawPreview(verticalPreview, verticalRadius, verticalFrequency, verticalStartTheta, true, elapsedTime);
     drawPreview(horizontalPreview, horizontalRadius, horizontalFrequency, horizontalStartTheta, false, elapsedTime);
-    drawImagePreview(imagePreview, verticalRadius, verticalFrequency, verticalStartTheta, horizontalRadius, horizontalFrequency, horizontalStartTheta, elapsedTime);
+
+    const verticalDrawingRadius = (elapsedTime === shakeDuration && isResetPosition) ? 0 : verticalRadius;
+    const horizontalDrawingRadius = (elapsedTime === shakeDuration && isResetPosition) ? 0 : horizontalRadius;
+
+    drawImagePreview(imagePreview, verticalDrawingRadius, verticalFrequency, verticalStartTheta, horizontalDrawingRadius, horizontalFrequency, horizontalStartTheta, elapsedTime);
 }
 
 function drawPoint(ctx, x, y, color, radius = 5) {
