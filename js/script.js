@@ -110,8 +110,8 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-function getElapsedTime() {
-    return isAnimationRunning() ? (Date.now() - _animationStartTime) / 1000 : (_animationStopTime - _animationStartTime) / 1000;
+function getElapsedMilliSeconds() {
+    return isAnimationRunning() ? (Date.now() - _animationStartTime) : (_animationStopTime - _animationStartTime);
 }
 
 function update() {
@@ -124,19 +124,19 @@ function update() {
     const shakeDuration = parseFloat(shakeDurationInput.value) <= 0 ? Infinity : parseFloat(shakeDurationInput.value);
     const isResetPosition = checkResetPositionAfterShaking.checked;
 
-    const elapsedTime = Math.min(shakeDuration, getElapsedTime());
+    const elapsedMilliSeconds = Math.min(shakeDuration, getElapsedMilliSeconds());
 
-    if (elapsedTime === shakeDuration) {
+    if (elapsedMilliSeconds === shakeDuration) {
         stopAnimation();
     }
 
-    drawPreview(verticalPreview, verticalRadius, verticalFrequency, verticalStartTheta, true, elapsedTime);
-    drawPreview(horizontalPreview, horizontalRadius, horizontalFrequency, horizontalStartTheta, false, elapsedTime);
+    drawPreview(verticalPreview, verticalRadius, verticalFrequency, verticalStartTheta, true, elapsedMilliSeconds);
+    drawPreview(horizontalPreview, horizontalRadius, horizontalFrequency, horizontalStartTheta, false, elapsedMilliSeconds);
 
-    const verticalDrawingRadius = (elapsedTime === shakeDuration && isResetPosition) ? 0 : verticalRadius;
-    const horizontalDrawingRadius = (elapsedTime === shakeDuration && isResetPosition) ? 0 : horizontalRadius;
+    const verticalDrawingRadius = (elapsedMilliSeconds === shakeDuration && isResetPosition) ? 0 : verticalRadius;
+    const horizontalDrawingRadius = (elapsedMilliSeconds === shakeDuration && isResetPosition) ? 0 : horizontalRadius;
 
-    drawImagePreview(imagePreview, verticalDrawingRadius, verticalFrequency, verticalStartTheta, horizontalDrawingRadius, horizontalFrequency, horizontalStartTheta, elapsedTime);
+    drawImagePreview(imagePreview, verticalDrawingRadius, verticalFrequency, verticalStartTheta, horizontalDrawingRadius, horizontalFrequency, horizontalStartTheta, elapsedMilliSeconds);
 }
 
 function drawPoint(ctx, x, y, color, radius = 5) {
@@ -180,7 +180,7 @@ function drawSubdivisionAndPoints(canvas, radius, coordinates, isVertical) {
     }
 }
 
-function drawPreview(canvas, radius, frequency, startTheta, isVertical, elapsedTime) {
+function drawPreview(canvas, radius, frequency, startTheta, isVertical, elapsedMilliSeconds) {
     const ctx = canvas.getContext('2d');
 
     const defaultFillStyle = ctx.fillStyle;
@@ -188,7 +188,7 @@ function drawPreview(canvas, radius, frequency, startTheta, isVertical, elapsedT
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = defaultFillStyle;
 
-    const coordinates = getCalculatedCircularCoordinates(radius, frequency, startTheta, elapsedTime);
+    const coordinates = getCalculatedCircularCoordinates(radius, frequency, startTheta, elapsedMilliSeconds);
 
     drawCircleAndPoints(canvas, radius, coordinates);
     drawSubdivisionAndPoints(canvas, radius, coordinates, isVertical);
@@ -204,12 +204,12 @@ function drawPreview(canvas, radius, frequency, startTheta, isVertical, elapsedT
     ctx.strokeStyle = defaultStrokeStyle;
 }
 
-function drawImagePreview(canvas, verticalRadius, verticalFrequency, verticalStartTheta, horizontalRadius, horizontalFrequency, horizontalStartTheta, elapsedTime) {
+function drawImagePreview(canvas, verticalRadius, verticalFrequency, verticalStartTheta, horizontalRadius, horizontalFrequency, horizontalStartTheta, elapsedMilliSeconds) {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const verticalCoordinates = getCalculatedCircularCoordinates(verticalRadius, verticalFrequency, verticalStartTheta, elapsedTime);
-    const horizontalCoordinates = getCalculatedCircularCoordinates(horizontalRadius, horizontalFrequency, horizontalStartTheta, elapsedTime);
+    const verticalCoordinates = getCalculatedCircularCoordinates(verticalRadius, verticalFrequency, verticalStartTheta, elapsedMilliSeconds);
+    const horizontalCoordinates = getCalculatedCircularCoordinates(horizontalRadius, horizontalFrequency, horizontalStartTheta, elapsedMilliSeconds);
 
     ctx.drawImage(image, canvas.width / 2 - image.width / 2 + horizontalCoordinates.x, canvas.height / 2 - image.height / 2 + verticalCoordinates.y);
 
@@ -231,8 +231,8 @@ function drawImagePreview(canvas, verticalRadius, verticalFrequency, verticalSta
     ctx.strokeStyle = defaultStrokeStyle;
 }
 
-function getCalculatedCircularCoordinates(radius, frequency, startTheta, elapsedTime) {
-    const theta = elapsedTime * 2 * Math.PI * frequency + startTheta;
+function getCalculatedCircularCoordinates(radius, frequency, startTheta, elapsedMilliSeconds) {
+    const theta = (elapsedMilliSeconds / 1000) * 2 * Math.PI * frequency + startTheta;
     const x = radius * Math.cos(theta);
     const y = -radius * Math.sin(theta);
 
