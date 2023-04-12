@@ -27,14 +27,14 @@
 				<form>
 					<div class="input-wrapper">
 						<label for="vertical-radius"
-							title="Specifies the radius of the circle the image will shake in.">揺れ幅:</label>
+							title="Specifies the radius of the circle the image will shake in.">半径[pixel]:</label>
 						<input type="range" id="vertical-radius" name="vertical-radius" min="0" max="100" value="0">
 						<input type="number" id="vertical-radius-number" name="vertical-radius-number" min="0" max="100"
 							value="20">
 					</div>
 					<div class="input-wrapper">
 						<label for="vertical-frequency"
-							title="Specifies how many cycles the image will shake per second.">周期[周/秒]:</label>
+							title="Specifies how many cycles the image will shake per second.">周波数[周/sec]:</label>
 						<input type="range" id="vertical-frequency" name="vertical-frequency" min="0" max="10"
 							step="0.0625" value="1">
 						<input type="number" id="vertical-frequency-number" name="vertical-frequency-number" min="0"
@@ -42,7 +42,7 @@
 					</div>
 					<div class="input-wrapper">
 						<label for="vertical-start-theta"
-							title="You can shift the start theta of the image's shake.">位相/周:</label>
+							title="You can shift the start theta of the image's shake.">開始位置[周]:</label>
 						<input type="range" id="vertical-start-theta" name="vertical-start-theta" min="0" max="1"
 							step="0.01" value="0">
 						<input type="number" id="vertical-start-theta-number" name="vertical-start-theta-number" min="0"
@@ -55,7 +55,7 @@
 				<form>
 					<div class="input-wrapper">
 						<label for="horizontal-radius"
-							title="Specifies the radius of the circle the image will shake in.">揺れ幅:</label>
+							title="Specifies the radius of the circle the image will shake in.">半径[pixel]:</label>
 						<input type="range" id="horizontal-radius" name="horizontal-radius" min="0" max="100"
 							value="20">
 						<input type="number" id="horizontal-radius-number" name="horizontal-radius-number" min="0"
@@ -63,7 +63,7 @@
 					</div>
 					<div class="input-wrapper">
 						<label for="horizontal-frequency"
-							title="Specifies how many cycles the image will shake per second.">周期[周/秒]:</label>
+							title="Specifies how many cycles the image will shake per second.">周波数[周/sec]:</label>
 						<input type="range" id="horizontal-frequency" name="horizontal-frequency" min="0" max="10"
 							step="0.0625" value="4">
 						<input type="number" id="horizontal-frequency-number" name="horizontal-frequency-number" min="0"
@@ -71,7 +71,7 @@
 					</div>
 					<div class="input-wrapper">
 						<label for="horizontal-start-theta"
-							title="You can shift the start theta of the image's shake.">位相/周:</label>
+							title="You can shift the start theta of the image's shake.">開始位置[周]:</label>
 						<input type="range" id="horizontal-start-theta" name="horizontal-start-theta" min="0" max="1"
 							step="0.01" value="0">
 						<input type="number" id="horizontal-start-theta-number" name="horizontal-start-theta-number"
@@ -83,8 +83,8 @@
 				<h4>他パラメータ</h4>
 				<form>
 					<div class="input-wrapper">
-						<label for="shake-duration" title="Specifies how long the image will shake.">揺らし続ける時間[秒]
-							(0:無期限):</label>
+						<label for="shake-duration"
+							title="Specifies how long the image will shake.">揺れの持続時間[ms](0:無期限):</label>
 						<input type="range" id="shake-duration" name="shake-duration" min="0" max="10000" value="0"
 							step="62.5">
 						<input type="number" id="shake-duration-number" name="shake-duration-number" min="0" max="10000"
@@ -135,16 +135,21 @@
 				<h4>制御パラメータ</h4>
 				<p>以下のパラメータは、垂直方向および水平方向の揺れ効果を制御します。</p>
 				<ul>
-					<li><strong>振幅:</strong>イメージが揺れる円の半径を指定します。半径が大きいほど、イメージが揺れる範囲が広くなります。</li>
-					<li><strong>周波数 [サイクル/秒]:</strong>イメージが1秒あたりに揺れるサイクル数を指定します。1は1秒に1サイクル、2は1秒に2サイクル揺れます。</li>
-					<li><strong>位相 [サイクル]:</strong>イメージの揺れの開始位相をシフトできます。0に設定するとサイクルの始めから、1に設定すると1サイクル後から開始します。</li>
+					<li><strong>半径[pixel]: </strong>揺れ成分を作るための円の半径をピクセル単位で指定します。半径が大きいほど、画像の揺れ幅が大きくなります。</li>
+					<li><strong>周波数[周/sec]: </strong>揺れ成分を作るための円の円周上を移動する点が1秒あたり何周するかを指定します。1は1秒に1周、2は1秒に2周移動します。</li>
+					<li><strong>開始位置[周]:
+						</strong>揺れ成分を作るための円の円周上を移動する点の開始位置を周単位で指定します。0は0周(0°)、0.25は1/4周(90°)、0.5は1/2周(180°)、0.75は3/4周(270°)、1は1周(360°)を表します。
+					</li>
+					<li>
+						<strong>揺れの持続期間[ms]: </strong>
+						画像がどのくらいの時間揺れるかをミリ秒単位で指定します。1000を指定した場合、揺れが開始してから1秒後に揺れが停止します。0を指定した場合、無期限に揺れます。
+					</li>
 				</ul>
-				<p>揺れの期間パラメータは、イメージがどのくらいの時間揺れるかを指定します。0に設定すると無期限に揺れます。</p>
 				<h4>制御ボタン</h4>
 				<p>以下のボタンで揺れアニメーションを制御できます。</p>
 				<ul>
-					<li><strong>アニメーションを開始:</strong>現在のパラメータで揺れアニメーションを開始します。</li>
-					<li><strong>アニメーションを停止:</strong>揺れアニメーションを停止します。</li>
+					<li><strong>開始: </strong>現在のパラメータで揺れアニメーションを開始します。</li>
+					<li><strong>停止: </strong>揺れアニメーションを停止します。</li>
 				</ul>
 				<h4>プリセットボタン</h4>
 				<p>ツールには、いくつかのプリセットが用意されています。プリセットボタンをクリックすることで、簡単にさまざまな揺れ効果を試すことができます。</p>
